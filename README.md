@@ -11,7 +11,7 @@ Created a simple terminal program to add a title of the project a description an
 
 ### USING GLOBAL BASH VERSION
 
-I put both files in my usr/loca/bin and then i created an
+I put both files in my home bin and then i created an
 allias called create_readme that will run the .sh file. You need
 to pass it your current directory in order for the python file
 to know what path to use since it is in a different dir than you.
