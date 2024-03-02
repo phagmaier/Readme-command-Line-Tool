@@ -1,11 +1,20 @@
 # README COMMAND-LINE TOOL
 
 ## DESCRIPTION
-Created a simple terminal program to add a title of the project a description and create a file table. Making a README can be boring and wanted to automate some of it and this is what I have for now it's simple and can easily be exapanded. I'm sure better ones exist but I like this as a boilerplate generator. it is also convenient for adding all files in a path to a table with relative links or adding only files  that end in a particular extension in a particular directory.
+Currently the program creates a README with a Title, 
+a Description and creates a table
+with all files you want in it and a brief description of each file.
+it allows you to select all files in a directory, all files with a 
+specific extension or you can select files to add to the table one
+at a time. 
+More support and options will be added later.
+Making a README can be boring and I wanted to automate some of that process. 
+
+Created a simple terminal program to add a title of the project a description and create a file table. 
 
 | File | Descripton |
 | --------- | --------------------- |
-| [main.py](main.py) | Creates a README |
+| [create_readme.py](main.py) | Creates a README |
 | [create_readme.py](global_bash_version/create_readme.py) | For using the program as a bash command 
 | [create_readme.sh](global_bash_version/create_readme.sh) | For using the program as a bash command 
 
