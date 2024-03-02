@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+import sys
 from pathlib import Path
 
 def get_title():
@@ -18,12 +21,9 @@ def option_files():
             return True
         return False
 
-
-#returns a tuple with the name of the file and the relative path from the current directory
 def get_all_files(dir, curr_dir):
     return [(str(file.name),str(file.relative_to(curr_dir))) for file in dir.iterdir() if file.is_file()]
 
-#dir you want to get shit out of, the readme dir and the extension
 def file_extensions(dir, curr_dir, extension):
     matching_files = dir.glob(f'*.{extension}')
     return [(str(file.name),str(file.relative_to(curr_dir))) for file in matching_files]
@@ -58,18 +58,15 @@ def get_descriptions(names):
     return descriptions
 
 
-def get_files():
+def get_files(curr_dir,og_dir):
     files = []
     paths = []
-    og_dir = Path.cwd()
-    curr_dir = Path.cwd()
     while True:
         print("You can exit at any time by typing exit") 
         print("Please enter the directory you would like to get")
-        print("these files from with respect to your current path")
+        print("files from with respect to your current path")
         dir = input("If the files are in the current dir just hit enter: ")
         if dir:
-            #might want to return something idk
             if dir.lower() == "exit":
                 return files,paths
             curr_dir = parse_dir(dir,curr_dir)
@@ -92,7 +89,6 @@ def get_files():
                 for name, path in all:
                     files.append(name)
                     paths.append(path)
-        
 
         decision = input("If you want more files type something else click enter")
         if not decision:
@@ -105,14 +101,22 @@ def parse_dir(newdir, curr_path):
         if not curr_path.exists():
             print('Not a valid path')
             print("All previous work lost starting over")
-            get_files()
-    print(type(curr_path))
+            get_files(curr_path,curr_path)
     return curr_path
 
-
-    
-
 def main():
+    if len(sys.argv) < 2:
+        print("NEED TO PASS THE CURRENT DIRECTORY YOU ARE IN")
+        print("IT NEEDS TO BE THE FULL DIRECTORY")
+        return
+    og_dir = Path(sys.argv[1])
+    curr_dir = Path(sys.argv[1])
+    if not curr_dir.is_dir():
+        print('NOT A VALID DIRECTORY')
+        print("NEED TO PASS THE CURRENT DIRECTORY YOU ARE IN")
+        print("IT NEEDS TO BE THE FULL DIRECTORY")
+        return
+
     output = "# "
     output += get_title() + "\n"
     output += "## DESCRIPTION\n"
@@ -120,15 +124,12 @@ def main():
     y_or_n = option_files()
     if y_or_n:
         output += "\n"
-        names, paths = get_files()
+        names, paths = get_files(curr_dir,og_dir)
         descriptions = get_descriptions(names)
         output += make_table(names,paths,descriptions)
-
-    with open("README.md", 'w') as file:
+    filename = og_dir / "README.md"
+    with open(filename, 'w') as file:
         file.write(output)
-    
-
-
 
 if __name__ == '__main__':
     main()
