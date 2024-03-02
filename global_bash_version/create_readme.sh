@@ -1,4 +1,4 @@
 #!/bin/bash
 
-python3 /usr/local/bin/create_readme.py "$@"
+python3 ~/bin/create_readme.py "$PWD"
 
