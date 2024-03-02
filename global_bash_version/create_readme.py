@@ -118,15 +118,16 @@ def main():
         return
 
     output = "# "
-    output += get_title() + "\n"
+    output += get_title() + "\n\n"
     output += "## DESCRIPTION\n"
-    output += get_description() + "\n" 
+    output += get_description() + "\n\n" 
     y_or_n = option_files()
     if y_or_n:
         output += "\n"
         names, paths = get_files(curr_dir,og_dir)
         descriptions = get_descriptions(names)
         output += make_table(names,paths,descriptions)
+        output +='\n'
     filename = og_dir / "README.md"
     with open(filename, 'w') as file:
         file.write(output)

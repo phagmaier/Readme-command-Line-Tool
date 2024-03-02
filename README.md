@@ -6,17 +6,19 @@ Created a simple terminal program to add a title of the project a description an
 | File | Descripton |
 | --------- | --------------------- |
 | [main.py](main.py) | Creates a README |
-| [create_readme.py](global_bash_version/create_readme.py) | Put this is path somewhere with the .sh file of same name and pass the current path to be able to run this from anywhere without this file in your directory
-| [create_readme.sh](global_bash_version/create_readme.sh) | Can alias running this bash file passing it your current directory and it will automatically call the python file. convenient if you don't want to always have the file in your directory. 
+| [create_readme.py](global_bash_version/create_readme.py) | For using the program as a bash command 
+| [create_readme.sh](global_bash_version/create_readme.sh) | For using the program as a bash command 
 
 ### USING GLOBAL BASH VERSION
-
-I put both files in my home bin and then i created an
-allias called create_readme that will run the .sh file. You need
-to pass it your current directory in order for the python file
-to know what path to use since it is in a different dir than you.
-It is nice if you plan on actually using this (which I doubt anyone will besides me)
-because you don't need to constantly copy the files into your current directory. 
+you can use the .sh file to turn the program into a command
+so that you can run this program from anywhere. I have it set up
+so that it will automatically detetect the local directory you are in
+and pass that to the .sh and .py file. using these global bash versions
+allows you to treat this program as a script that enables you to run
+this program from anywhere without having to copy and past the main.py
+file into your directory any time you want to use it. Obviously
+you can change the path in the .sh file to reflect where you are storing
+the .py file.
 
 
 ### TO-DO
