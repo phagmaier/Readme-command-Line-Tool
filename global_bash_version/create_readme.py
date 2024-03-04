@@ -7,6 +7,37 @@ def get_title():
     title = input("What is the title of your project: ")
     return title.upper()
 
+#should include a way to include code
+def how_to_run(og_dir):
+    final = ""
+    print("HOW TO RUN SECTION")
+    print("You can include code manially by doing '''\n code here\n'''")
+    print("Or you can just include text")
+    print("Or you can pass a file path with respect to the current directory") 
+    print("with the code you want to include and we will display it") 
+    while True:
+        usr = input("If you are done or don't want to include this section press enter: ")
+
+        if usr:
+            temp = og_dir / usr
+            if temp.is_file():
+                with open(temp) as f:
+                    final += f.read() + "\n"
+            else:
+                final += usr + "\n"
+        
+            
+        else:
+            return final
+
+#Should include a way to include code
+def how_to_install():
+    print("HOW TO ISNTALL SECTION")
+    print("Note that you must do newlines and tabs manually")
+    if usr.lower() == 'n':
+        return ""
+    return usr
+
 def get_description():
     description  = input("Enter a description of your project: ")
     return description
@@ -123,11 +154,20 @@ def main():
     output += get_description() + "\n\n" 
     y_or_n = option_files()
     if y_or_n:
-        output += "\n"
         names, paths = get_files(curr_dir,og_dir)
         descriptions = get_descriptions(names)
+        output += "\n## File Table\n\n"
         output += make_table(names,paths,descriptions)
-        output +='\n'
+        output +='\n\n'
+    htr = how_to_run(og_dir)
+    if htr:
+        output += "## How to run\n"
+        output += htr + "\n\n"
+    hti = how_to_install()
+    if hti:
+        output += "## How to install\n"
+        output += hti + "\n\n"
+    
     filename = og_dir / "README.md"
     with open(filename, 'w') as file:
         file.write(output)
