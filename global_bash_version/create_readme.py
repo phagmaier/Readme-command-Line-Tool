@@ -1,14 +1,61 @@
 #!/usr/bin/env python3
 
 import sys
+import ast
 from pathlib import Path
 
 def get_title():
     title = input("What is the title of your project: ")
     return title.upper()
 
+#should include a way to include code
+def how_to_run(og_dir):
+    final = ""
+    print("HOW TO RUN SECTION")
+    print("You can include code manually by doing '''\n\t\t\t\tCODE HERE\n'''")
+    print("Or you can just include text. You can even include manual newlines")
+    print("Or you can pass a file path with respect to the current directory") 
+    print("with the code you want to include and we will display it") 
+    while True:
+        usr = input("If you are done or don't want to include this section press enter: ")
+        if usr:
+            temp = og_dir / usr
+            if temp.is_file():
+                final += "'''"
+                with open(temp) as f:
+                    final += f.read() + "\n"
+                final += "'''"
+            else:
+                final += ast.literal_eval(f'"{usr}"') + "\n"
+        else:
+            return final
+
+#Should include a way to include code
+def how_to_install(og_dir):
+    final = ""
+    print("HOW TO INSTALL SECTION")
+    print("You can include code manually by doing '''\n\t\t\t\tCODE HERE\n'''")
+    print("Or you can just include text. You can even includ manual newlines")
+    print("Or you can pass a file path with respect to the current directory") 
+    print("with the code you want to include and we will display it") 
+    while True:
+        usr = input("If you are done or don't want to include this section press enter: ")
+        if usr:
+            temp = og_dir / usr
+            if temp.is_file():
+                final += "'''"
+                with open(temp) as f:
+                    final += f.read() + "\n"
+                final += "'''"
+            else:
+                final += ast.literal_eval(f'"{usr}"') + "\n"
+        else:
+            return final
+
 def get_description():
     description  = input("Enter a description of your project: ")
+    if description:
+        return ast.literal_eval(f'"{description}"') 
     return description
 
 def option_files():
@@ -59,6 +106,7 @@ def get_descriptions(names):
 
 
 def get_files(curr_dir,og_dir):
+    print("GETTING FILES TO INCLUDE IN THE FILE TABLE SECTION")
     files = []
     paths = []
     while True:
@@ -123,11 +171,20 @@ def main():
     output += get_description() + "\n\n" 
     y_or_n = option_files()
     if y_or_n:
-        output += "\n"
         names, paths = get_files(curr_dir,og_dir)
         descriptions = get_descriptions(names)
+        output += "\n## File Table\n\n"
         output += make_table(names,paths,descriptions)
-        output +='\n'
+        output +='\n\n'
+    htr = how_to_run(og_dir)
+    if htr:
+        output += "## How to run\n"
+        output += htr + "\n\n"
+    hti = how_to_install(og_dir)
+    if hti:
+        output += "## How to install\n"
+        output += hti + "\n\n"
+    
     filename = og_dir / "README.md"
     with open(filename, 'w') as file:
         file.write(output)
