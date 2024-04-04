@@ -5,19 +5,23 @@ import ast
 from pathlib import Path
 
 def get_title():
+    print()
     title = input("What is the title of your project: ")
     return title.upper()
 
 #should include a way to include code
 def how_to_run(og_dir):
+    print()
     final = ""
     print("HOW TO RUN SECTION")
-    print("You can include code manually by doing '''\n\t\t\t\tCODE HERE\n'''")
+    print("You can include code manually by using backticks. For example: \n```\nCODE HERE\n```")
     print("Or you can just include text. You can even include manual newlines")
     print("Or you can pass a file path with respect to the current directory") 
     print("with the code you want to include and we will display it") 
+    print("Note that this file will have to include the backticks.")
     while True:
         usr = input("If you are done or don't want to include this section press enter: ")
+        print()
         if usr:
             temp = og_dir / usr
             if temp.is_file():
@@ -32,14 +36,16 @@ def how_to_run(og_dir):
 
 #Should include a way to include code
 def how_to_install(og_dir):
+    print()
     final = ""
     print("HOW TO INSTALL SECTION")
-    print("You can include code manually by doing '''\n\t\t\t\tCODE HERE\n'''")
+    print("You can include code manually by doing \n```\nCODE HERE\n```")
     print("Or you can just include text. You can even includ manual newlines")
     print("Or you can pass a file path with respect to the current directory") 
     print("with the code you want to include and we will display it") 
     while True:
         usr = input("If you are done or don't want to include this section press enter: ")
+        print()
         if usr:
             temp = og_dir / usr
             if temp.is_file():
@@ -53,15 +59,18 @@ def how_to_install(og_dir):
             return final
 
 def get_description():
+    print()
     description  = input("Enter a description of your project: ")
     if description:
         return ast.literal_eval(f'"{description}"') 
     return description
 
 def option_files():
+    print()
     choice = input("Do you wish to include a list of files? (y/n): ").upper()
     if choice not in ['Y',"N"]:
         print("Sorry invalid input please try again")
+        print()
         option_files()
     else:
         if choice == 'Y':
@@ -76,11 +85,14 @@ def file_extensions(dir, curr_dir, extension):
     return [(str(file.name),str(file.relative_to(curr_dir))) for file in matching_files]
 
 def a_file(dir ,base_dir):
+    print()
     files = []
     paths = []
     print("When you are done selecting files in this directory type q")
+    print()
     while True:
         file_name = input('please enter the file name: ')
+        print()
         if file_name.lower() == 'q':
             return files,paths
         matching =  dir.glob(file_name)
@@ -97,15 +109,18 @@ def make_table(names, paths, description):
     return table
 
 def get_descriptions(names):
+    print()
     descriptions = []
     for i in names:
         print(f"What description of file {i} would you like to give")
         usr = input("Description:")
+        print()
         descriptions.append(usr)
     return descriptions
 
 
 def get_files(curr_dir,og_dir):
+    print()
     print("GETTING FILES TO INCLUDE IN THE FILE TABLE SECTION")
     files = []
     paths = []
@@ -138,7 +153,7 @@ def get_files(curr_dir,og_dir):
                     files.append(name)
                     paths.append(path)
 
-        decision = input("If you want more files type something else click enter")
+        decision = input("If you want more files type y. If done click enter: ")
         if not decision:
             return files,paths
 
